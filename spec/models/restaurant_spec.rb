@@ -16,13 +16,24 @@ RSpec.describe Restaurant, type: :model do
     expect(restaurant.rating).to eq(0)
   end
 
-  it 'averages and rounds review ratings' do
+  it 'averages and rounds rating after adding review' do
     restaurant = create(:restaurant)
-    one_star_review = create(:review, reviewable: restaurant)
-    two_star_review = create(:review, rating: 2, reviewable: restaurant)
+    [1, 2].each { |rating| create(:review, rating: rating , reviewable: restaurant) }
     expect(restaurant.rating).to eq(2)
 
     three_star_review = create(:review, rating: 3, reviewable: restaurant)
     expect(restaurant.rating).to eq(2)
+  end
+
+  it 'averages and rounds rating after deleting review' do
+    restaurant = create(:restaurant)
+    [1, 2].each { |rating| create(:review, rating: rating , reviewable: restaurant) }
+    expect(restaurant.rating).to eq(2)
+
+    Review.last.destroy
+    expect(restaurant.reload.rating).to eq(1)
+
+    Review.last.destroy
+    expect(restaurant.reload.rating).to eq(0)
   end
 end
