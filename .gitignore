@@ -30,3 +30,5 @@
 yarn-debug.log*
 .yarn-integrity
 spec/.DS_Store
+.gemtags
+.tags
