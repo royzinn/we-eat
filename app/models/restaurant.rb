@@ -9,7 +9,7 @@ class Restaurant < ApplicationRecord
   has_many :restaurant_genres, dependent: :destroy
   has_many :genres, through: :restaurant_genres
 
-  validates :name, presence: true
+  validates :name, presence: true, uniqueness: true
   validates :max_delivery_time, numericality: { only_integer: true, greater_than_or_equal_to: 0 }
 
   def update_rating_from_review
