@@ -32,3 +32,6 @@ yarn-debug.log*
 spec/.DS_Store
 .gemtags
 .tags
+Procfile.dev
+.eslintrc.json
+.DS_Store
