@@ -4,7 +4,8 @@
   "dependencies": {
     "@rails/webpacker": "^3.2.2",
     "babel-preset-react": "^6.24.1",
-    "prop-types": "^15.6.0",
+    "babel-runtime": "^6.26.0",
+    "prop-types": "^15.6.1",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
     "react-google-maps": "^9.4.5",
@@ -14,6 +15,7 @@
   "devDependencies": {
     "babel-cli": "^6.26.0",
     "babel-plugin-transform-async-to-generator": "^6.24.1",
+    "babel-plugin-transform-runtime": "^6.23.0",
     "babel-preset-es2017": "^6.24.1",
     "eslint": "^4.18.1",
     "eslint-config-airbnb": "^16.1.0",
