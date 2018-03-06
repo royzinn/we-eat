@@ -4,47 +4,51 @@ import FiltersBar from '../FiltersBar/FiltersBar'
 import RestaurantsMain from '../Restaurants/RestaurantsMain/RestaurantsMain'
 
 export default class Main extends Component {
-  state = { restaurants: [], cuisins: [], filters: { rating: null, cuisine: null, speed: null } };
+  state = {
+    restaurants: [],
+    cuisins: [],
+    filters: {
+      rating: null,
+      cuisine: null,
+      speed: null
+    }
+  };
 
   componentDidMount() {
     this.fetchRestaurants();
     this.fetchCuisins();
   }
 
-  fetchRestaurants() {
-    fetch('/restaurants')
-      .then(
-        response => response.json(),
-        error => console.log('An error occurred fetching restaurants.', error)
-      )
-      .then(restaurants => this.setState({ restaurants }))
+  async fetchRestaurants() {
+    const response = await fetch('/restaurants');
+    const restaurants = await response.json();
+
+    this.setState(state => ({ restaurants }));
   }
 
-  fetchCuisins() {
-    fetch('/genres')
-      .then(
-        response => response.json(),
-        error => console.log('An error occurred fetching genres.', error)
-      )
-      .then(cuisins => this.setState({ cuisins }))
+  async fetchCuisins() {
+    const response = await fetch('/genres');
+    const cuisins = await response.json();
+
+    this.setState(state => ({ cuisins }));
   }
 
-  filterCuisins(e){
+  filterCuisins = (e) => {
     const cuisine = e.target.value
 
-    this.setState({filters: {...this.state.filters, cuisine}});
+    this.setState(state => ({ filters: { ...state.filters, cuisine } }));
   }
 
-  filterRating(e){
-    const rating = parseInt(e.target.value.match(/\d+/)[0])
+  filterRating = (e) => {
+    const rating = e.target.value.match(/\d+/) && Number(e.target.value.match(/\d+/)[0]);
 
-    this.setState({filters: {...this.state.filters, rating}});
+    this.setState(state => ({ filters: { ...state.filters, rating } }));
   }
 
-  filterSpeed(e){
-    const speed = parseInt(e.target.value.match(/\d+/)[0])
+  filterSpeed = (e) => {
+    const speed = e.target.value.match(/\d+/) && Number(e.target.value.match(/\d+/)[0])
 
-    this.setState({ filters: {...this.state.filters, speed}});
+    this.setState(state => ({ filters: { ...state.filters, speed } }));
   }
 
   filteredRestaurants(){
@@ -62,10 +66,10 @@ export default class Main extends Component {
       <div className="container-fluid">
         <Header />
         <FiltersBar
-          cuisins={this.state.cuisins}
-          filterCuisins={this.filterCuisins.bind(this)}
-          filterRating={this.filterRating.bind(this)}
-          filterSpeed={this.filterSpeed.bind(this)}
+          cuisins={this.state.cuisins.map(cuisine => cuisine.name)}
+          filterCuisins={this.filterCuisins}
+          filterRating={this.filterRating}
+          filterSpeed={this.filterSpeed}
         />
         <RestaurantsMain restaurants={this.filteredRestaurants()} />
       </div>

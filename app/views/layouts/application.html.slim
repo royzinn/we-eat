@@ -8,6 +8,6 @@ html
     = javascript_include_tag 'application', 'data-turbolinks-track': 'reload'
 
     = javascript_pack_tag 'index'
-  body
+  body class=controller.controller_path
     main role='main'
       = yield
