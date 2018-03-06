@@ -11,11 +11,13 @@
         "useBuiltIns": true
       }
     ],
-    "react"
+    "react",
+    "es2017"
   ],
   "plugins": [
     "syntax-dynamic-import",
     "transform-object-rest-spread",
+    "babel-plugin-transform-runtime",
     [
       "transform-class-properties",
       {
