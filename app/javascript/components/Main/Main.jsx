@@ -1,64 +1,65 @@
 import React, { Component } from 'react';
-import Header from '../Header/Header'
-import FiltersBar from '../FiltersBar/FiltersBar'
-import RestaurantsMain from '../Restaurants/RestaurantsMain/RestaurantsMain'
+import Header from '../Header/Header';
+import FiltersBar from '../FiltersBar/FiltersBar';
+import RestaurantsMain from '../Restaurants/RestaurantsMain/RestaurantsMain';
 
 export default class Main extends Component {
   state = {
     restaurants: [],
-    cuisins: [],
-    filters: {
-      rating: null,
-      cuisine: null,
-      speed: null
-    }
+    cuisines: [],
+    cuisineFilter: 'SHOW_ALL',
+    rateFilter: 'SHOW_ALL',
+    deliveryTimeFilter: 'SHOW_ALL',
   };
 
   componentDidMount() {
     this.fetchRestaurants();
-    this.fetchCuisins();
+    this.fetchCuisines();
   }
 
   async fetchRestaurants() {
     const response = await fetch('/restaurants');
     const restaurants = await response.json();
 
-    this.setState(state => ({ restaurants }));
+    this.setState(() => ({ restaurants }));
   }
 
-  async fetchCuisins() {
+  async fetchCuisines() {
     const response = await fetch('/genres');
-    const cuisins = await response.json();
+    const cuisines = await response.json();
 
-    this.setState(state => ({ cuisins }));
+    this.setState(() => ({ cuisines }));
   }
 
-  filterCuisins = (e) => {
-    const cuisine = e.target.value
+  filterCuisines = (e) => {
+    const cuisineFilter = e.target.value || 'SHOW_ALL';
 
-    this.setState(state => ({ filters: { ...state.filters, cuisine } }));
+    this.setState(() => ({ cuisineFilter }));
   }
 
   filterRating = (e) => {
-    const rating = e.target.value.match(/\d+/) && Number(e.target.value.match(/\d+/)[0]);
+    const value = e.target.value.match(/\d+/);
+    const rateFilter = (value && Number(value[0])) || 'SHOW_ALL';
 
-    this.setState(state => ({ filters: { ...state.filters, rating } }));
+    this.setState(() => ({ rateFilter }));
   }
 
-  filterSpeed = (e) => {
-    const speed = e.target.value.match(/\d+/) && Number(e.target.value.match(/\d+/)[0])
+  filterDeliveryTime = (e) => {
+    const value = e.target.value.match(/\d+/);
+    const deliveryTimeFilter = (value && Number(value[0])) || 'SHOW_ALL';
 
-    this.setState(state => ({ filters: { ...state.filters, speed } }));
+    this.setState(() => ({ deliveryTimeFilter }));
   }
 
-  filteredRestaurants(){
-    const { rating, cuisine, speed } = this.state.filters
+  filteredRestaurants() {
+    const { cuisineFilter, rateFilter, deliveryTimeFilter } = this.state;
+    const showAll = 'SHOW_ALL';
 
     return this.state.restaurants.filter(restaurant =>
-      (!rating || restaurant.rating === rating) &&
-      (!cuisine || restaurant.genres.map(genre => genre.name).includes(cuisine)) &&
-      (!speed || restaurant.max_delivery_time <= speed)
-    )
+      ((rateFilter === showAll) || (restaurant.rating === rateFilter)) &&
+      ((cuisineFilter === showAll) || (restaurant.genres.map(genre => genre.name).includes(cuisineFilter))) &&
+      ((deliveryTimeFilter === showAll) || (restaurant.max_delivery_time <= deliveryTimeFilter))
+    );
   }
 
   render() {
@@ -66,10 +67,10 @@ export default class Main extends Component {
       <div className="container-fluid">
         <Header />
         <FiltersBar
-          cuisins={this.state.cuisins.map(cuisine => cuisine.name)}
-          filterCuisins={this.filterCuisins}
+          cuisines={this.state.cuisines.map(cuisine => cuisine.name)}
+          filterCuisines={this.filterCuisines}
           filterRating={this.filterRating}
-          filterSpeed={this.filterSpeed}
+          filterDeliveryTime={this.filterDeliveryTime}
         />
         <RestaurantsMain restaurants={this.filteredRestaurants()} />
       </div>

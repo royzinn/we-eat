@@ -1,9 +1,9 @@
-import React, { Component } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import { FormGroup, Input, Label } from 'reactstrap';
 
-const deliveryTimes = [15, 30, 45, 60, 90];
-const ratings = [1, 2, 3, 4, 5];
+const DELIVERY_TIMES = [15, 30, 45, 60, 90];
+const RATINGS = [1, 2, 3, 4, 5];
 
 const SelectInput = ({ label, handleChange, options, defaultOption }) => {
   return (
@@ -24,23 +24,23 @@ SelectInput.propTypes = {
   options: PropTypes.arrayOf(PropTypes.string),
 };
 
-export default function FiltersBar({ cuisins, filterCuisins, filterRating, filterSpeed }) {
+export default function FiltersBar({ cuisines, filterCuisines, filterRating, filterDeliveryTime }) {
   return (
     <div className="row py-3 bg-danger">
       <div className="container">
         <div className="row py-2">
           <div className="col-12 col-sm-4">
             <SelectInput
-              label="Cuisins"
-              options={cuisins.map(cuisin => cuisin)}
-              handleChange={filterCuisins}
+              label="Cuisines"
+              options={cuisines.map(cuisin => cuisin)}
+              handleChange={filterCuisines}
               defaultOption="Sushi, israeli, oriental..."
             />
           </div>
           <div className="col-12 col-sm-4">
             <SelectInput
               label="Rating"
-              options={ratings.map(rate => `${rate} ${rate === 1 ? 'star' : 'stars'}`)}
+              options={RATINGS.map(rate => `${rate} ${rate === 1 ? 'star' : 'stars'}`)}
               handleChange={filterRating}
               defaultOption="I'm an all-star"
             />
@@ -48,8 +48,8 @@ export default function FiltersBar({ cuisins, filterCuisins, filterRating, filte
           <div className="col-12 col-sm-4">
             <SelectInput
               label="Speed"
-              options={deliveryTimes.map(minutes => `Up to ${minutes} minutes`)}
-              handleChange={filterSpeed}
+              options={DELIVERY_TIMES.map(minutes => `Up to ${minutes} minutes`)}
+              handleChange={filterDeliveryTime}
               defaultOption="I need it before..."
             />
           </div>
@@ -60,8 +60,8 @@ export default function FiltersBar({ cuisins, filterCuisins, filterRating, filte
 }
 
 FiltersBar.propTypes = {
-  cuisins: PropTypes.arrayOf(PropTypes.string),
-  filterCuisins: PropTypes.func.isRequired,
+  cuisines: PropTypes.arrayOf(PropTypes.string),
+  filterCuisines: PropTypes.func.isRequired,
   filterRating: PropTypes.func.isRequired,
-  filterSpeed: PropTypes.func.isRequired,
+  filterDeliveryTime: PropTypes.func.isRequired,
 };

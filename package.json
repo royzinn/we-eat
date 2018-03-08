@@ -3,14 +3,17 @@
   "private": true,
   "dependencies": {
     "@rails/webpacker": "^3.2.2",
+    "babel-eslint": "^8.2.2",
     "babel-preset-react": "^6.24.1",
     "babel-runtime": "^6.26.0",
     "prop-types": "^15.6.1",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
     "react-google-maps": "^9.4.5",
+    "react-redux": "^5.0.7",
     "react-router-dom": "^4.2.2",
-    "reactstrap": "^5.0.0-beta"
+    "reactstrap": "^5.0.0-beta",
+    "redux": "^3.7.2"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",

@@ -22,7 +22,6 @@ const Map = withScriptjs(withGoogleMap(({ selectedRestaurant }) => (
         lng: selectedRestaurant.addresses[0].longitude,
       } : defaultCenter
     }
-
   >
     {selectedRestaurant &&
       <Marker

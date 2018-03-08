@@ -1,10 +1,9 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import RestaurantsList from '../List/List';
+import RestaurantsList from '../List/RestaurantsList';
 import Map from '../Map/Map';
 
 export default class RestaurantsMain extends Component {
-
   static propTypes = {
     restaurants: PropTypes.arrayOf(PropTypes.object),
   }
@@ -12,11 +11,11 @@ export default class RestaurantsMain extends Component {
   state = { selectedRestaurant: null }
 
   onRestaurantClick = (selectedRestaurant) => {
-    this.setState(state => ({ selectedRestaurant }));
+    this.setState(() => ({ selectedRestaurant }));
   }
 
   render() {
-    const { restaurants } = this.props
+    const { restaurants } = this.props;
 
     return (
       <div className="container my-5">
@@ -33,11 +32,11 @@ export default class RestaurantsMain extends Component {
               loadingElement={<div style={{ height: '100%' }} />}
               containerElement={<div style={{ height: '600px' }} />}
               mapElement={<div style={{ height: '100%' }} />}
-              selectedRestaurant={this.state. selectedRestaurant}
+              selectedRestaurant={this.state.selectedRestaurant}
             />
           </div>
         </div>
       </div>
-    )
+    );
   }
 }
