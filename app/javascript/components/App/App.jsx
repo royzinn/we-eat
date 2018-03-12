@@ -1,6 +1,6 @@
 import React from 'react';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
-import { Provider } from 'react-redux'
+import { Provider } from 'react-redux';
 import Main from '../Main/Main';
 import { createStore, applyMiddleware } from 'redux';
 import { rootReducer } from '../../redux/rootReducer';

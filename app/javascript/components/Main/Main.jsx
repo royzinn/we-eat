@@ -19,8 +19,6 @@ export default class Main extends Component {
   }
 
   render() {
-    const { cuisines } = this.props
-
     return (
       <div className="container-fluid">
         <Header />
