@@ -1,21 +1,17 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
 import RestaurantsList from '../List/RestaurantsList';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { fetchRestaurants, selectRestaurant } from '../../../redux/actions/restaurants';
 import Map from '../Map/Map';
 
-export default class RestaurantsMain extends Component {
-  static propTypes = {
-    restaurants: PropTypes.arrayOf(PropTypes.object),
-  }
-
-  state = { selectedRestaurant: null }
-
-  onRestaurantClick = (selectedRestaurant) => {
-    this.setState(() => ({ selectedRestaurant }));
+class RestaurantsMain extends Component {
+  componentDidMount() {
+    this.props.fetchRestaurants();
   }
 
   render() {
-    const { restaurants } = this.props;
+    const { restaurants, onRestaurantSelect, selectedRestaurant } = this.props;
 
     return (
       <div className="container my-5">
@@ -23,7 +19,7 @@ export default class RestaurantsMain extends Component {
           <div className="col-12 col-sm-4">
             <RestaurantsList
               restaurants={restaurants}
-              onRestaurantClick={this.onRestaurantClick}
+              onRestaurantClick={onRestaurantSelect}
             />
           </div>
           <div className="col-12 col-sm-8">
@@ -32,7 +28,7 @@ export default class RestaurantsMain extends Component {
               loadingElement={<div style={{ height: '100%' }} />}
               containerElement={<div style={{ height: '600px' }} />}
               mapElement={<div style={{ height: '100%' }} />}
-              selectedRestaurant={this.state.selectedRestaurant}
+              selectedRestaurant={selectedRestaurant}
             />
           </div>
         </div>
@@ -40,3 +36,35 @@ export default class RestaurantsMain extends Component {
     );
   }
 }
+
+RestaurantsMain.propTypes = {
+  restaurants: PropTypes.arrayOf(PropTypes.object),
+  onRestaurantSelect: PropTypes.func.isRequired,
+  fetchRestaurants: PropTypes.func.isRequired,
+  selectedRestaurant: PropTypes.object,
+};
+
+const getVisibleRestaurants = (restaurants, cuisineFilter, rateFilter, deliveryTimeFilter) => {
+  return restaurants.filter(restaurant =>
+    ((rateFilter === 'SHOW_ALL') || (restaurant.rating === rateFilter)) &&
+    ((cuisineFilter === 'SHOW_ALL') || (restaurant.genres.map(genre => genre.name).includes(cuisineFilter))) &&
+    ((deliveryTimeFilter === 'SHOW_ALL') || (restaurant.max_delivery_time <= deliveryTimeFilter))
+  );
+};
+
+const mapStateToProps = state => ({
+  restaurants: getVisibleRestaurants(
+    state.restaurants.items,
+    state.cuisineFilter,
+    state.rateFilter,
+    state.deliveryTimeFilter,
+  ),
+  selectedRestaurant: state.selectedRestaurant,
+});
+
+const mapDispatchToProps = dispatch => ({
+  onRestaurantSelect: restaurant => dispatch(selectRestaurant(restaurant)),
+  fetchRestaurants: () => dispatch(fetchRestaurants()),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(RestaurantsMain);

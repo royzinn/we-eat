@@ -16,14 +16,14 @@ function formattedAddress(addressObj) {
 const Map = withScriptjs(withGoogleMap(({ selectedRestaurant }) => (
   <GoogleMap
     defaultZoom={16}
-    center={selectedRestaurant ?
+    center={selectedRestaurant.addresses ?
       {
         lat: selectedRestaurant.addresses[0].latitude,
         lng: selectedRestaurant.addresses[0].longitude,
       } : defaultCenter
     }
   >
-    {selectedRestaurant &&
+    {selectedRestaurant.addresses &&
       <Marker
         position={{
           lat: selectedRestaurant.addresses[0].latitude,

@@ -1,12 +1,20 @@
-import { FETCH_CUISINES } from '../actionCreators/fetchCuisines';
+import {
+  REQUEST_CUISINES,
+  RECEIVE_CUISINES,
+} from '../actions/cuisines';
 
-export default function fetchCuisines(state = [], action) {
+export function cuisines(
+  state = {
+    isFetching: false,
+    items: [],
+  },
+  action
+) {
   switch (action.type) {
-  case FETCH_CUISINES:
-    return {
-      ...state,
-      cuisines: action.cuisines,
-    };
+  case REQUEST_CUISINES:
+    return { ...state, isFetching: true };
+  case RECEIVE_CUISINES:
+    return { ...state, isFetching: false, items: action.cuisines };
   default:
     return state;
   }

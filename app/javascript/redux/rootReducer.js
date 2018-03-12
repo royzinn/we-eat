@@ -1,17 +1,18 @@
 import { combineReducers } from 'redux';
-import cuisines from './reducers/cuisines';
-import restaurants from './reducers/restaurants';
-import cuisineFilter from './reducers/cuisineFilter';
-import rateFilter from './reducers/rateFilter';
-import deliveryTimeFilter from './reducers/deliveryTimeFilter';
-import selectedRestaurant from './reducers/selectedRestaurant';
+import { selectedRestaurant, restaurants } from './reducers/restaurants';
+import { cuisines } from './reducers/cuisines';
+import {
+  cuisineFilter,
+  rateFilter,
+  deliveryTimeFilter,
+} from './reducers/filters';
 
 export const rootReducer = combineReducers({
   cuisines,
   restaurants,
+  selectedRestaurant,
   cuisineFilter,
   rateFilter,
   deliveryTimeFilter,
-  selectedRestaurant,
 });
 
