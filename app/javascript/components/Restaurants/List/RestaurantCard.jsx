@@ -1,13 +1,15 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-const ratingToStars = (rating) => Array(rating).fill('⭐');
-
 export default class RestaurantCard extends Component {
   state = { restaurant: this.props.restaurant };
 
   onRestaurantClick = () => {
     this.props.onRestaurantClick(this.state.restaurant);
+  }
+
+  ratingToStars(rating) {
+    return Array(rating).fill('⭐');
   }
 
   render() {
@@ -23,7 +25,7 @@ export default class RestaurantCard extends Component {
           <h6 className="card-subtitle mb-2 text-muted">
             {`Cuisines: ${restaurant.genres.map(genre => genre.name).join(', ')}`}
           </h6>
-          <p className="card-subtitle mb-2 text-muted">Rating: {ratingToStars(restaurant.rating)}</p>
+          <p className="card-subtitle mb-2 text-muted">Rating: {this.ratingToStars(restaurant.rating)}</p>
           {
             restaurant.reviews.length ?
               <a href="#" className="card-link">Reviews ({restaurant.reviews.length})</a> :
