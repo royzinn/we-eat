@@ -8,6 +8,7 @@
     "babel-runtime": "^6.26.0",
     "prop-types": "^15.6.1",
     "react": "^16.2.0",
+    "react-bootstrap-typeahead": "^2.5.1",
     "react-dom": "^16.2.0",
     "react-google-maps": "^9.4.5",
     "react-redux": "^5.0.7",

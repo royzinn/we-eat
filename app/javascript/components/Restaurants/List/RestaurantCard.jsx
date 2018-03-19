@@ -2,6 +2,13 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
 export default class RestaurantCard extends Component {
+  static propTypes = {
+    restaurant: PropTypes.object,
+    selectedRestaurant: PropTypes.object,
+    onRestaurantClick: PropTypes.func.isRequired,
+  };
+
+
   state = { restaurant: this.props.restaurant };
 
   onRestaurantClick = () => {
@@ -17,7 +24,7 @@ export default class RestaurantCard extends Component {
 
     return (
       <div className="card mb-2" onClick={this.onRestaurantClick}>
-        <div className="card-body">
+        <div className={`card-body ${this.props.selectedRestaurant === restaurant ? 'active' : ''}`}>
           <h5 className="card-title text-capitalize">
             {restaurant.name}
             { restaurant.accepts_10bis && <span className="ml-1 tenbis-wrap"><img src="/images/10bis.png" /></span> }
@@ -36,8 +43,3 @@ export default class RestaurantCard extends Component {
     );
   }
 }
-
-RestaurantCard.propTypes = {
-  restaurant: PropTypes.object,
-  onRestaurantClick: PropTypes.func.isRequired,
-};

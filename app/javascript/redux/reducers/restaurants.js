@@ -7,7 +7,7 @@ import {
 export function selectedRestaurant(state = {}, action) {
   switch (action.type) {
   case SELECT_RESTAURANT:
-    return action.restaurant;
+    return action.restaurant || {};
   default:
     return state;
   }

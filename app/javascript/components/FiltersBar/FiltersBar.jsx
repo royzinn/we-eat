@@ -28,7 +28,15 @@ SelectInput.propTypes = {
 };
 
 class FiltersBar extends Component {
-  componentDidMount() {
+  static propTypes = {
+    fetchCuisines: PropTypes.func.isRequired,
+    cuisines: PropTypes.arrayOf(PropTypes.object),
+    onCuisineChange: PropTypes.func.isRequired,
+    onRatingsChange: PropTypes.func.isRequired,
+    onDeliveryTimeChange: PropTypes.func.isRequired,
+  };
+
+  componentWillMount() {
     this.props.fetchCuisines();
   }
 
@@ -89,14 +97,6 @@ class FiltersBar extends Component {
     );
   }
 }
-
-FiltersBar.propTypes = {
-  fetchCuisines: PropTypes.func.isRequired,
-  cuisines: PropTypes.arrayOf(PropTypes.object),
-  onCuisineChange: PropTypes.func.isRequired,
-  onRatingsChange: PropTypes.func.isRequired,
-  onDeliveryTimeChange: PropTypes.func.isRequired,
-};
 
 const mapStateToProps = state => ({
   cuisines: state.cuisines.items,

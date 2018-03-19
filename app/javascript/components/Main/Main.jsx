@@ -1,7 +1,7 @@
-import React, { Component } from 'react';
+import React from 'react';
 import Header from '../Header/Header';
 import FiltersBar from '../FiltersBar/FiltersBar';
-import RestaurantsMain from '../Restaurants/RestaurantsMain/RestaurantsMain';
+import RestaurantsMain from '../Restaurants/RestaurantsMain';
 
 export default function Main() {
   return (

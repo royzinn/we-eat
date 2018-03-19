@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import RestaurantCard from './RestaurantCard';
 
-export default function RestaurantsList({ restaurants, onRestaurantClick }) {
+export default function RestaurantsList({ restaurants, onRestaurantClick, selectedRestaurant }) {
   return (
     <div className="restaurants-list">
       {restaurants.map(restaurant => (
@@ -10,6 +10,7 @@ export default function RestaurantsList({ restaurants, onRestaurantClick }) {
           key={restaurant.id}
           restaurant={restaurant}
           onRestaurantClick={onRestaurantClick}
+          selectedRestaurant={selectedRestaurant}
         />
       ))}
     </div>
@@ -19,4 +20,5 @@ export default function RestaurantsList({ restaurants, onRestaurantClick }) {
 RestaurantsList.propTypes = {
   restaurants: PropTypes.arrayOf(PropTypes.object),
   onRestaurantClick: PropTypes.func.isRequired,
+  selectedRestaurant: PropTypes.object,
 };
